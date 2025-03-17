@@ -6,3 +6,7 @@
 * 后端：直接使用IDEA加载项目，等待Maven依赖下载完成后运行JavaRagApplication即可。
     启动前需要提前安装chromaDB和ollama，并提前用ollama将quentinz/bge-large-zh-v1.5和deepseek-r1拉取到本地，或者在配置文件中修改你需要的模型
 ~~* 前端：需要使用pnpm install安装依赖，然后使用pnpm run dev启动项目即可，没有pnpm的需要先试用npm install -g pnpm安装pnpm~~
+
+
+### bilibili
+https://www.bilibili.com/video/BV1KgXuYkEZ2/?vd_source=63dd6c95574a96ab9d589bc71072056a
