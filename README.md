@@ -1,6 +1,7 @@
 ### 基于langchain4j实现的RAG项目
 * langchain4j从0.36.0版本开始已经不再支持java8，这里使用0.35.0的最后一个支持java8的版本来作为参考。
-~~* 前段项目使用ant-design-x实现~~
+
+~~* 前端项目使用ant-design-x实现~~
 
 ### 运行项目
 * 后端：直接使用IDEA加载项目，等待Maven依赖下载完成后运行JavaRagApplication即可。
