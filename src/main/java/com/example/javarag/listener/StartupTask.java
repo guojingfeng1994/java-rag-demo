@@ -24,7 +24,7 @@ public class StartupTask implements ApplicationRunner {
         // 启动时执行的一次性任务
         System.out.println("启动检查chroma集合是否存在任务...");
         // 任务逻辑
-        createCollectionIfNotExists();
+        deleteThenCreateCollection();
     }
 
     private boolean createCollectionIfNotExists() throws IOException {
@@ -47,16 +47,49 @@ public class StartupTask implements ApplicationRunner {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("name", chromaCollection);
             Request createReq = new Request.Builder()
-                    .url(url)
+                    .url(demoConfig.getChromaUrl() + "/api/v1/collections")
                     .addHeader("Content-Type", "application/json")
                     .post(RequestBody.create(null, jsonObject.toJSONString()))
                     .build();
-            okHttpClient.newCall(request).execute();
+            okHttpClient.newCall(createReq).execute();
             System.out.println("创建集合成功...");
         } else {
             System.out.println("集合已存在...");
         }
         System.out.println("检查集合是否存在任务完成...");
+        return true;
+    }
+
+    private boolean deleteThenCreateCollection() throws IOException {
+        // 检查向量数据库中是否存在指定的集合
+        String chromaCollection = demoConfig.getChromaCollection();
+        // 使用http请求chroma服务器查询集合是否存在
+        String url = demoConfig.getChromaUrl() + "/api/v1/collections/" + chromaCollection;
+
+        try {
+            Request request = new Request
+                    .Builder()
+                    .url(url)
+                    .addHeader("Content-Type", "application/json")
+                    .delete()
+                    .build();
+            Response result = okHttpClient.newCall(request).execute();
+
+            System.out.println("集合删除成功...");
+        } catch (IOException e) {
+            // 集合可能不存在，忽略
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", chromaCollection);
+        Request createReq = new Request.Builder()
+                .url(demoConfig.getChromaUrl() + "/api/v1/collections")
+                .addHeader("Content-Type", "application/json")
+                .post(RequestBody.create(null, jsonObject.toJSONString()))
+                .build();
+        okHttpClient.newCall(createReq).execute();
+        System.out.println("创建集合成功...");
+
         return true;
     }
 }

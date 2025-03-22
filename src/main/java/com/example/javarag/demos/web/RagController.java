@@ -15,6 +15,7 @@ import dev.langchain4j.store.embedding.EmbeddingSearchResult;
 import dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore;
 import io.swagger.annotations.Api;
 import org.apache.commons.io.IOUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,10 +34,13 @@ import java.util.List;
 public class RagController {
 
     @Resource
+    @Lazy
     private ChatLanguageModel chatLanguageModel;
     @Resource
+    @Lazy
     private EmbeddingModel embeddingModel;
     @Resource
+    @Lazy
     private ChromaEmbeddingStore embeddingStore;
 
     @PostMapping("/query")

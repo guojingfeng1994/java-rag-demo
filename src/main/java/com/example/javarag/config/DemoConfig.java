@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import static java.time.Duration.ofSeconds;
 
@@ -39,6 +40,7 @@ public class DemoConfig {
      * @return
      */
     @Bean
+    @Lazy
     public ChatLanguageModel chatLanguageModel() {
         return OllamaChatModel.builder()
                 .baseUrl(ollamaUrl)
@@ -54,6 +56,7 @@ public class DemoConfig {
      * @return
      */
     @Bean
+    @Lazy
     public EmbeddingModel embeddingModel()
     {
         return OllamaEmbeddingModel.builder()
@@ -67,6 +70,7 @@ public class DemoConfig {
      * @return
      */
     @Bean
+    @Lazy
     public ChromaEmbeddingStore embeddingStore()
     {
         return ChromaEmbeddingStore.builder()
